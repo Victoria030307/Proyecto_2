@@ -8,7 +8,7 @@ import proyecto2_hernandez_zarbo_abad.TablasHash.ListaPalabrasClave;
 import proyecto2_hernandez_zarbo_abad.EDAux.Articulo;
 
 /**
- *
+ * 
  * @author victoria
  */
 
