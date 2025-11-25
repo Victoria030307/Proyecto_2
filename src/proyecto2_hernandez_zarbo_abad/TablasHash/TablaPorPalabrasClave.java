@@ -12,109 +12,93 @@ import proyecto2_hernandez_zarbo_abad.EDAux.Articulo;
  * @author victoria 
  */
 
+/**
+ * Implementa una Tabla de Dispersión (Hash Table) diseñada para indexar
+ * artículos por sus palabras clave. Cada posición de la tabla almacena una
+ * lista de artículos asociados a una palabra clave específica (ListaPalabrasClave).
+ */
 public class TablaPorPalabrasClave {
     public ListaPalabrasClave[] listas;
     int total;
     
+    /**
+     * Constructor que inicializa la tabla de dispersión con un tamaño fijo (1000).
+     */
     public TablaPorPalabrasClave(){
         this.total = 1000;
         this.listas = new ListaPalabrasClave[this.total];
     }
     
+    /**
+     * Calcula el índice hash para una palabra clave dada.
+     * @param titulo La palabra clave a hashear.
+     * @return El índice calculado dentro de los límites del array.
+     */
     public int hash(String titulo) {
-    long indiceHash = 0;
-    // Utilizamos un número primo grande (ej. 31) y sumamos el valor ASCII
-    for (int i = 0; i < titulo.length(); i++) {
-        // Multiplicación y suma para generar el hash
-        indiceHash = indiceHash * 31 + titulo.toLowerCase().charAt(i);
-    }
-    
-    // Aplicamos el módulo para obtener el índice.
-    // Usamos esta expresión para garantizar que el resultado siempre sea positivo.
-    int indice = (int) (indiceHash % this.total);
-    
-    // Si el resultado de la operación anterior fue negativo (debido a que hashValue superó los límites de long/int 
-    // y se convirtió en negativo, lo cual es común en estas funciones), lo corregimos.
-    if (indice < 0) {
-        indice += this.total;
-    }
-    
-    return indice;
-}
-    
-    public void insertar(Articulo articulo) {
-    // ESTE ES EL BUCLE CRÍTICO
-    for (String palabraClave : articulo.getPalabrasClaves()) { 
-        String claveLimpia = palabraClave.trim().toLowerCase();
-        // DEBUG: Muestra qué palabra se está procesando
-    System.out.println("-> Procesando palabra clave: " + claveLimpia);
-        // 1. Calcular el hash para la clave limpia
-        int hash = this.hash(claveLimpia);
-        int inicio = hash;
+        long indiceHash = 0;
+        for (int i = 0; i < titulo.length(); i++) {
+            indiceHash = indiceHash * 31 + titulo.toLowerCase().charAt(i);
+        }
+        int indice = (int) (indiceHash % this.total);
+        if (indice < 0) {
+            indice += this.total;
+        }
         
-        // 2. Sondaje Lineal para encontrar un lugar
-        do {
-            if (this.listas[hash] == null) {
-                // Posición vacía: Insertar nueva ListaPalabrasClave
-                this.listas[hash] = new ListaPalabrasClave(claveLimpia);
-                this.listas[hash].insertar(articulo);
-                System.out.println("-> Insertada en índice: " + hash);
-            break;
-            } else if (this.listas[hash].getClave().equals(claveLimpia)) {
-                // Clave ya existe: Añadir el artículo
-                this.listas[hash].insertar(articulo);
-                System.out.println("-> Actualizada en índice: " + hash);
-            break;
-            }
-            
-            // Pasar a la siguiente posición (Sondaje Lineal)
-            hash = (hash + 1) % this.total;
-            
-        } while (hash != inicio);
-    } // <-- El bucle 'for' debería continuar aquí con la siguiente palabra
-}
+        return indice;
+    }
     
-    // Requerimiento 3: Buscar Investigaciones por palabra clave (O(1))
+    /**
+     * Inserta un artículo indexándolo bajo todas sus palabras clave.
+     * Utiliza sondaje lineal para resolver colisiones.
+     * @param articulo El objeto Articulo a insertar.
+     */
+    public void insertar(Articulo articulo) {
+        for (String palabraClave : articulo.getPalabrasClaves()) {
+            String claveLimpia = palabraClave.trim().toLowerCase();
+            // System.out.println("-> Procesando palabra clave: " + claveLimpia); // Se elimina print
+            int hash = this.hash(claveLimpia);
+            int inicio = hash;
+            do {
+                if (this.listas[hash] == null) {
+                    this.listas[hash] = new ListaPalabrasClave(claveLimpia);
+                    this.listas[hash].insertar(articulo);
+                    // System.out.println("-> Insertada en índice: " + hash); // Se elimina print
+                    break;
+                } else if (this.listas[hash].getClave().equals(claveLimpia)) {
+                    this.listas[hash].insertar(articulo);
+                    // System.out.println("-> Actualizada en índice: " + hash); // Se elimina print
+                    break;
+                }
+                hash = (hash + 1) % this.total;
+                
+            } while (hash != inicio);
+        }
+    }
+    
+    /**
+     * Busca la lista de artículos asociada a una palabra clave específica.
+     * @param palabra La palabra clave a buscar.
+     * @return El objeto ListaPalabrasClave si se encuentra, o null si no existe.
+     */
     public ListaPalabrasClave buscarPalabraClave(String palabra){
         String palabraBuscada = palabra.toLowerCase();
         int hash = this.hash(palabraBuscada);
         int inicio = hash;
         
         do {
-        if (this.listas[hash] == null) {
-            System.out.println("DEBUG: Posición " + hash + " es nula. Búsqueda fallida.");
-            return null;
-        } else {
-            String claveAlmacenada = this.listas[hash].getClave();
-            
-            // Inspección crítica
-            System.out.println("DEBUG: Comparando. Buscada: '" + palabraBuscada + "'. Almacenada: '" + claveAlmacenada + "'.");
-            
-            if (claveAlmacenada.equals(palabraBuscada)) {
-                return this.listas[hash];
+            if (this.listas[hash] == null) {
+                return null;
+            } else {
+                String claveAlmacenada = this.listas[hash].getClave();
+                if (claveAlmacenada.equals(palabraBuscada)) {
+                    return this.listas[hash];
+                }
             }
-        }
-        
-        hash = (hash + 1) % this.total;
-    } while (hash != inicio);
+            
+            hash = (hash + 1) % this.total;
+        } while (hash != inicio);
         
         return null;
     }
     
-    public void mostrarContenidoHash() {
-        System.out.println("==========================================");
-        System.out.println("  DEBUG: CONTENIDO DE TABLA POR PALABRAS CLAVE");
-        System.out.println("==========================================");
-        
-        for (int i = 0; i < this.total; i++) {
-            if (this.listas[i] != null && !this.listas[i].getClave().isEmpty()) {
-                String clave = this.listas[i].getClave();
-                int numArticulos = this.listas[i].getAgregados();
-                
-                // Muestra el índice (posición real) y la palabra almacenada
-                System.out.println("Índice [" + i + "]: '" + clave + "' | Artículos: " + numArticulos);
-            }
-        }
-        System.out.println("==========================================");
-    }
 }
