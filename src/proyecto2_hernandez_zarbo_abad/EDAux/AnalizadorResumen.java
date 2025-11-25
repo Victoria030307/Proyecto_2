@@ -6,7 +6,7 @@ package proyecto2_hernandez_zarbo_abad.EDAux;
 
 /**
  *
- * @author gustavo
+ * @author gustavo 
  */
 public class AnalizadorResumen {
     
