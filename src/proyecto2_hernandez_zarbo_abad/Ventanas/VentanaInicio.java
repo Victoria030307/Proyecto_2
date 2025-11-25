@@ -12,7 +12,7 @@ import proyecto2_hernandez_zarbo_abad.Ventanas.EscogerResumenEspecifico;
 import proyecto2_hernandez_zarbo_abad.Ventanas.AnalizarResumenGeneral;
 import proyecto2_hernandez_zarbo_abad.Ventanas.AgregarResumen;
 
-/**
+/** 
  *
  * @author giovanni
  */
