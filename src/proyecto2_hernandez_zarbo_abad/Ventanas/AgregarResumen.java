@@ -36,7 +36,7 @@ public class AgregarResumen extends javax.swing.JFrame {
         this.avlAutores =avlAutores;
         this.avlPalabras = avlPalabras;
         initComponents();
-        this.setVisible(true);
+        this.setVisible(true); 
     }
 
     
