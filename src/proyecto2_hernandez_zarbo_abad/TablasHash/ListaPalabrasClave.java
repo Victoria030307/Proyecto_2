@@ -39,7 +39,6 @@ public class ListaPalabrasClave {
     }
 
     public Articulo[] getArticulos() {
-        // Devuelve solo los artículos que se han agregado (los no nulos)
         Articulo[] resultado = new Articulo[agregados];
         for (int i = 0; i < agregados; i++) {
             resultado[i] = articulos[i];
