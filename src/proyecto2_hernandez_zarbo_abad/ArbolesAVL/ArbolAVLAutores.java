@@ -79,23 +79,19 @@ public class ArbolAVLAutores {
 
         int balance = obtenerFactorEquilibrio(nodo);
 
-        // Caso Izquierda-Izquierda
         if (balance > 1 && autor.compareTo(nodo.getIzquierda().getAutor()) < 0) {
             return rotacionDerecha(nodo);
         }
 
-        // Caso Derecha-Derecha
         if (balance < -1 && autor.compareTo(nodo.getDerecha().getAutor()) > 0) {
             return rotacionIzquierda(nodo);
         }
 
-        // Caso Izquierda-Derecha
         if (balance > 1 && autor.compareTo(nodo.getIzquierda().getAutor()) > 0) {
             nodo.setIzquierda(rotacionIzquierda(nodo.getIzquierda()));
             return rotacionDerecha(nodo);
         }
 
-        // Caso Derecha-Izquierda
         if (balance < -1 && autor.compareTo(nodo.getDerecha().getAutor()) < 0) {
             nodo.setDerecha(rotacionDerecha(nodo.getDerecha()));
             return rotacionIzquierda(nodo);
@@ -119,7 +115,6 @@ public class ArbolAVLAutores {
         return null;
     }
 
-    // Requerimiento 4: Buscar Investigaciones por Autor (O(log n) + O(1))
     public Articulo[] buscarPorAutor(String autor) {
         NodoAVLAutor nodoAutor = buscarNodo(autor);
         if (nodoAutor != null) {
@@ -128,13 +123,7 @@ public class ArbolAVLAutores {
         return new Articulo[0];
     }
 
-    // Requerimiento 4: Obtener lista de autores ordenada alfabéticamente (O(n))
     public String[] listarAutores() {
-        // Para simplificar, se usará una lista auxiliar temporal para el recorrido InOrder
-        // y luego se convertirá a array.
-        // Nota: Si no se permite usar ninguna estructura de la librería de colecciones,
-        // esto debe ser reemplazado por una implementación de lista dinámica propia.
-
         String[] autores = new String[contarNodos(this.raiz)];
         listarInOrder(this.raiz, autores, new int[]{0});
         return autores;
