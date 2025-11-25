@@ -9,7 +9,7 @@ import proyecto2_hernandez_zarbo_abad.EDAux.Articulo;
 
 /**
  * 
- * @author victoria
+ * @author victoria 
  */
 
 public class TablaPorPalabrasClave {
