@@ -8,7 +8,7 @@ package proyecto2_hernandez_zarbo_abad.EDAux;
  *
  * @author victoria
  */
-
+ 
 public class Articulo {
     private String titulo;
     private String[] autores;
