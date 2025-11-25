@@ -113,7 +113,7 @@ public class ArbolAVLPalabrasClave {
             return nodo;
         }
 
-        actualizarAltura(nodo);
+        actualizarAltura(nodo); 
 
         int balance = obtenerFactorEquilibrio(nodo);
 
