@@ -22,18 +22,10 @@ public class TablaDeDispersion {
 
     public int hash(String titulo) {
         long indiceHash = 0;
-        // Utilizamos un número primo grande (ej. 31) y sumamos el valor ASCII
         for (int i = 0; i < titulo.length(); i++) {
-            // Multiplicación y suma para generar el hash
             indiceHash = indiceHash * 31 + titulo.toLowerCase().charAt(i);
         }
-
-        // Aplicamos el módulo para obtener el índice.
-        // Usamos esta expresión para garantizar que el resultado siempre sea positivo.
         int indice = (int) (indiceHash % this.total);
-
-        // Si el resultado de la operación anterior fue negativo (debido a que hashValue superó los límites de long/int 
-        // y se convirtió en negativo, lo cual es común en estas funciones), lo corregimos.
         if (indice < 0) {
             indice += this.total;
         }
@@ -76,7 +68,6 @@ public class TablaDeDispersion {
         return null;
     }
 
-    // Requerimiento 2.a: Listar títulos guardados (O(n))
     public String[] listarTitulos() {
         int conta = 0;
         for (int i = 0; i < this.total; i++) {
@@ -93,11 +84,6 @@ public class TablaDeDispersion {
                 indice++;
             }
         }
-
-        // Se debe ordenar alfabéticamente aquí. Se requiere un algoritmo de ordenamiento O(n^2) o O(n log n).
-        // Si no se puede usar ninguna librería, se debe implementar un algoritmo de ordenamiento (ej: MergeSort o QuickSort para O(n log n)).
-        // Asumiendo que esta es la lista que se presenta a la interfaz para que el usuario seleccione.
-        // Implementación simple de Bubble Sort (O(n^2)) para evitar dependencias, aunque Quicksort/Mergesort serían mejores.
         for (int i = 0; i < conta - 1; i++) {
             for (int j = 0; j < conta - i - 1; j++) {
                 if (titulos[j].compareTo(titulos[j + 1]) > 0) {
