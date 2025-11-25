@@ -10,16 +10,29 @@ import proyecto2_hernandez_zarbo_abad.EDAux.Articulo;
  *
  * @author victoria
  */
+/**
+ * Implementa una Tabla de Dispersión (Hash Table) utilizando direccionamiento
+ * abierto (sondaje lineal) para almacenar y buscar objetos Articulo por su título.
+ * La clave principal para el acceso rápido es el título del artículo.
+ */
 public class TablaDeDispersion {
 
     public Articulo[] articulos;
     public int total;
 
+    /**
+     * Constructor que inicializa la tabla de dispersión con un tamaño fijo (1000).
+     */
     public TablaDeDispersion() {
         this.total = 1000;
         this.articulos = new Articulo[this.total];
     }
 
+    /**
+     * Calcula el índice hash para un título dado usando la función hash polinomial.
+     * @param titulo El título del artículo a hashear.
+     * @return El índice calculado dentro de los límites del array.
+     */
     public int hash(String titulo) {
         long indiceHash = 0;
         for (int i = 0; i < titulo.length(); i++) {
@@ -33,6 +46,11 @@ public class TablaDeDispersion {
         return indice;
     }
 
+    /**
+     * Inserta un artículo en la tabla de dispersión. Utiliza sondaje lineal para
+     * manejar colisiones. Si el artículo ya existe, no hace nada.
+     * @param articulo El objeto Articulo a insertar.
+     */
     public void insertar(Articulo articulo) {
         String tituloArticulo = articulo.getTitulo().toLowerCase();
         int hash = this.hash(tituloArticulo);
@@ -50,6 +68,11 @@ public class TablaDeDispersion {
         } while (hash != inicio);
     }
 
+    /**
+     * Busca un artículo en la tabla de dispersión utilizando su título.
+     * @param titulo El título del artículo a buscar.
+     * @return El objeto Articulo si se encuentra, o null si no está presente.
+     */
     public Articulo buscarPorTitulo(String titulo) {
         String tituloBuscado = titulo.toLowerCase();
         int hash = this.hash(tituloBuscado);
@@ -68,6 +91,11 @@ public class TablaDeDispersion {
         return null;
     }
 
+    /**
+     * Lista todos los títulos de los artículos almacenados en la tabla de dispersión
+     * y los devuelve ordenados alfabéticamente.
+     * @return Un array de Strings con los títulos de los artículos.
+     */
     public String[] listarTitulos() {
         int conta = 0;
         for (int i = 0; i < this.total; i++) {
@@ -84,6 +112,7 @@ public class TablaDeDispersion {
                 indice++;
             }
         }
+
         for (int i = 0; i < conta - 1; i++) {
             for (int j = 0; j < conta - i - 1; j++) {
                 if (titulos[j].compareTo(titulos[j + 1]) > 0) {
