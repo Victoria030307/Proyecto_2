@@ -14,7 +14,7 @@ package proyecto2_hernandez_zarbo_abad.EDAux;
  * artículo y la frecuencia de aparición de un conjunto de palabras clave
  * globales en el resumen.
  */
-public class AnalizadorResumen {
+public class AnalizadorResumen { 
 
     /**
      * Analiza el artículo proporcionado y las palabras clave globales para
