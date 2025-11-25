@@ -68,7 +68,7 @@ public class TablaDeDispersion {
         } while (hash != inicio);
     }
 
-    /**
+    /** 
      * Busca un artículo en la tabla de dispersión utilizando su título.
      * @param titulo El título del artículo a buscar.
      * @return El objeto Articulo si se encuentra, o null si no está presente.

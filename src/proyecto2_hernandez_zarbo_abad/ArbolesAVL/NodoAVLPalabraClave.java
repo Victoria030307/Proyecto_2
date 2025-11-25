@@ -71,7 +71,7 @@ public class NodoAVLPalabraClave {
         this.izquierda = izquierda;
     }
 
-    /**
+    /** 
      * Obtiene el nodo hijo derecho.
      * @return El NodoAVLPalabraClave de la derecha.
      */

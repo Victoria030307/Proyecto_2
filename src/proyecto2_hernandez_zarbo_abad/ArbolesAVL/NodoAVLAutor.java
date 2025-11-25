@@ -10,7 +10,7 @@ import proyecto2_hernandez_zarbo_abad.EDAux.Articulo;
  *
  * @author gustavo
  */
-/**
+/** 
  * Representa un nodo dentro de un Árbol AVL de autores.
  * Cada nodo almacena el nombre de un autor y una colección dinámica de artículos
  * asociados a ese autor. También contiene la información necesaria para el

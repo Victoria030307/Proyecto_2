@@ -79,7 +79,7 @@ public class TablaPorPalabrasClave {
      * Busca la lista de artículos asociada a una palabra clave específica.
      * @param palabra La palabra clave a buscar.
      * @return El objeto ListaPalabrasClave si se encuentra, o null si no existe.
-     */
+     */ 
     public ListaPalabrasClave buscarPalabraClave(String palabra){
         String palabraBuscada = palabra.toLowerCase();
         int hash = this.hash(palabraBuscada);

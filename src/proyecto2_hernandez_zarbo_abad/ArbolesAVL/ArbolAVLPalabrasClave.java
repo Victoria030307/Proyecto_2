@@ -37,7 +37,7 @@ public class ArbolAVLPalabrasClave {
         return nodo == null ? 0 : altura(nodo.getIzquierda()) - altura(nodo.getDerecha());
     }
 
-    /**
+    /** 
      * Actualiza la altura de un nodo basándose en la altura máxima de sus hijos.
      * @param nodo El nodo cuya altura debe ser actualizada.
      */
@@ -113,7 +113,7 @@ public class ArbolAVLPalabrasClave {
             return nodo;
         }
 
-        actualizarAltura(nodo);
+        actualizarAltura(nodo); 
 
         int balance = obtenerFactorEquilibrio(nodo);
 
