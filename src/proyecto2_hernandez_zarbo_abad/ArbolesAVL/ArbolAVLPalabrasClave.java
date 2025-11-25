@@ -66,14 +66,14 @@ public class ArbolAVLPalabrasClave {
         } else if (comparacion > 0) {
             nodo.setDerecha(insertarRecursivo(nodo.getDerecha(), palabra));
         } else {
-            return nodo; // Ya existe, no se permite duplicados
+            return nodo; 
         }
 
         actualizarAltura(nodo);
 
         int balance = obtenerFactorEquilibrio(nodo);
 
-        // Casos de rotación (similares al AVL de autores)
+        
         if (balance > 1 && palabra.compareTo(nodo.getIzquierda().getPalabra()) < 0) {
             return rotacionDerecha(nodo);
         }
@@ -94,8 +94,7 @@ public class ArbolAVLPalabrasClave {
 
         return nodo;
     }
-    
-    // Requerimiento 5: Listar palabras clave en orden alfabético ascendente (O(n))
+
     public String[] listarPalabrasClaves() {
         int conta = contarNodos(this.raiz);
         String[] palabras = new String[conta];
