@@ -8,27 +8,31 @@ package proyecto2_hernandez_zarbo_abad.EDAux;
  *
  * @author gustavo
  */
+/**
+ * Clase encargada de analizar un artículo (principalmente su resumen) para
+ * generar un informe que incluye el nombre, autores, palabras clave del
+ * artículo y la frecuencia de aparición de un conjunto de palabras clave
+ * globales en el resumen.
+ */
 public class AnalizadorResumen {
 
+    /**
+     * Analiza el artículo proporcionado y las palabras clave globales para
+     * generar un informe de texto.
+     *
+     * @param articulo El objeto Articulo a analizar.
+     * @param palabrasClavesGlobales Un array de Strings con las palabras clave
+     * globales del sistema a buscar en el resumen.
+     * @return Un String que contiene el informe de análisis del artículo.
+     */
     public String analizar(Articulo articulo, String[] palabrasClavesGlobales) {
         String resumen = articulo.getResumen().toLowerCase();
-
-        StringBuilder analisis = new StringBuilder();
-        analisis.append("Nombre del trabajo: ").append(articulo.getTitulo()).append("\n");
-        analisis.append("Autores: ");
-        for (String autor : articulo.getAutores()) {
-            analisis.append(autor).append(", ");
-        }
-        analisis.append("\nPalabras clave: \n");
-
-        for (String pc : articulo.getPalabrasClaves()) {
-            analisis.append(pc).append(", ");
-        }
-
-        if (articulo.getAutores().length > 0) {
-            analisis.setLength(analisis.length() - 2);
-        }
-        analisis.append("\n\n");
+        String analisis = "";
+        analisis += "Nombre del trabajo: " + articulo.getTitulo() + "\n";
+        analisis += "Autores: " + String.join(", ", articulo.getAutores()) + "\n";
+        analisis += "Palabras clave: \n";
+        analisis += String.join(", ", articulo.getPalabrasClaves());
+        analisis += "\n\n";
 
         for (String palabraClave : palabrasClavesGlobales) {
             int frecuencia = 0;
@@ -43,13 +47,9 @@ public class AnalizadorResumen {
                         break;
                     }
                 }
-
                 if (coincide) {
-
                     boolean antesValido = (i == 0) || !Character.isLetterOrDigit(resumen.charAt(i - 1));
-
                     boolean despuesValido = (i + longitudPC == resumen.length()) || !Character.isLetterOrDigit(resumen.charAt(i + longitudPC));
-
                     if (antesValido && despuesValido) {
                         frecuencia++;
                         i += longitudPC - 1;
@@ -57,13 +57,13 @@ public class AnalizadorResumen {
                 }
             }
             if (frecuencia > 0) {
-                analisis.append(palabraClave)
-                        .append(": frecuencia con la cual la palabra clave, almacenada en el repositorio del sistema, aparece en el resumen ")
-                        .append(frecuencia)
-                        .append("\n");
+                analisis += palabraClave
+                        + ": frecuencia con la cual la palabra clave, almacenada en el repositorio del sistema, aparece en el resumen "
+                        + frecuencia
+                        + "\n";
             }
         }
 
-        return analisis.toString();
+        return analisis;
     }
 }

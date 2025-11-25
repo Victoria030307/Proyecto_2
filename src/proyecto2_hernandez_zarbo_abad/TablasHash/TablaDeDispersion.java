@@ -10,30 +10,35 @@ import proyecto2_hernandez_zarbo_abad.EDAux.Articulo;
  *
  * @author victoria
  */
+/**
+ * Implementa una Tabla de Dispersión (Hash Table) utilizando direccionamiento
+ * abierto (sondaje lineal) para almacenar y buscar objetos Articulo por su título.
+ * La clave principal para el acceso rápido es el título del artículo.
+ */
 public class TablaDeDispersion {
 
     public Articulo[] articulos;
     public int total;
 
+    /**
+     * Constructor que inicializa la tabla de dispersión con un tamaño fijo (1000).
+     */
     public TablaDeDispersion() {
         this.total = 1000;
         this.articulos = new Articulo[this.total];
     }
 
+    /**
+     * Calcula el índice hash para un título dado usando la función hash polinomial.
+     * @param titulo El título del artículo a hashear.
+     * @return El índice calculado dentro de los límites del array.
+     */
     public int hash(String titulo) {
         long indiceHash = 0;
-        // Utilizamos un número primo grande (ej. 31) y sumamos el valor ASCII
         for (int i = 0; i < titulo.length(); i++) {
-            // Multiplicación y suma para generar el hash
             indiceHash = indiceHash * 31 + titulo.toLowerCase().charAt(i);
         }
-
-        // Aplicamos el módulo para obtener el índice.
-        // Usamos esta expresión para garantizar que el resultado siempre sea positivo.
         int indice = (int) (indiceHash % this.total);
-
-        // Si el resultado de la operación anterior fue negativo (debido a que hashValue superó los límites de long/int 
-        // y se convirtió en negativo, lo cual es común en estas funciones), lo corregimos.
         if (indice < 0) {
             indice += this.total;
         }
@@ -41,6 +46,11 @@ public class TablaDeDispersion {
         return indice;
     }
 
+    /**
+     * Inserta un artículo en la tabla de dispersión. Utiliza sondaje lineal para
+     * manejar colisiones. Si el artículo ya existe, no hace nada.
+     * @param articulo El objeto Articulo a insertar.
+     */
     public void insertar(Articulo articulo) {
         String tituloArticulo = articulo.getTitulo().toLowerCase();
         int hash = this.hash(tituloArticulo);
@@ -58,6 +68,11 @@ public class TablaDeDispersion {
         } while (hash != inicio);
     }
 
+    /**
+     * Busca un artículo en la tabla de dispersión utilizando su título.
+     * @param titulo El título del artículo a buscar.
+     * @return El objeto Articulo si se encuentra, o null si no está presente.
+     */
     public Articulo buscarPorTitulo(String titulo) {
         String tituloBuscado = titulo.toLowerCase();
         int hash = this.hash(tituloBuscado);
@@ -76,7 +91,11 @@ public class TablaDeDispersion {
         return null;
     }
 
-    // Requerimiento 2.a: Listar títulos guardados (O(n))
+    /**
+     * Lista todos los títulos de los artículos almacenados en la tabla de dispersión
+     * y los devuelve ordenados alfabéticamente.
+     * @return Un array de Strings con los títulos de los artículos.
+     */
     public String[] listarTitulos() {
         int conta = 0;
         for (int i = 0; i < this.total; i++) {
@@ -94,10 +113,6 @@ public class TablaDeDispersion {
             }
         }
 
-        // Se debe ordenar alfabéticamente aquí. Se requiere un algoritmo de ordenamiento O(n^2) o O(n log n).
-        // Si no se puede usar ninguna librería, se debe implementar un algoritmo de ordenamiento (ej: MergeSort o QuickSort para O(n log n)).
-        // Asumiendo que esta es la lista que se presenta a la interfaz para que el usuario seleccione.
-        // Implementación simple de Bubble Sort (O(n^2)) para evitar dependencias, aunque Quicksort/Mergesort serían mejores.
         for (int i = 0; i < conta - 1; i++) {
             for (int j = 0; j < conta - i - 1; j++) {
                 if (titulos[j].compareTo(titulos[j + 1]) > 0) {
