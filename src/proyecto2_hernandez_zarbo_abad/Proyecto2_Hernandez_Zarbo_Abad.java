@@ -23,7 +23,7 @@ public class Proyecto2_Hernandez_Zarbo_Abad {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
+ 
         VentanaInicio menu = new VentanaInicio(new TablaDeDispersion(), new TablaPorPalabrasClave(), new ArbolAVLAutores(), new ArbolAVLPalabrasClave());
     }
 }

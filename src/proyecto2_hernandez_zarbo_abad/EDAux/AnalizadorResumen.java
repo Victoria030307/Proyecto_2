@@ -13,7 +13,7 @@ package proyecto2_hernandez_zarbo_abad.EDAux;
  * generar un informe que incluye el nombre, autores, palabras clave del
  * artículo y la frecuencia de aparición de un conjunto de palabras clave
  * globales en el resumen.
- */
+ */ 
 public class AnalizadorResumen { 
 
     /**

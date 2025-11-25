@@ -32,7 +32,7 @@ public class ListaPalabrasClave {
         this.agregados = 0;
     }
     
-    /**
+    /**  
      * Inserta un artículo en la lista. Si el array interno está lleno,
      * lo redimensiona (duplica su tamaño) para acomodar más artículos.
      * @param articulo El artículo a agregar a la lista.

@@ -82,10 +82,10 @@ public class Articulo {
         this.resumen = resumen;
     }
 
-    /**
+    /** 
      * Obtiene el array de palabras clave del artículo.
      * @return Array de Strings con las palabras clave.
-     */
+     */ 
     public String[] getPalabrasClaves() {
         return palabrasClaves;
     }
