@@ -1,0 +1,9 @@
+PROYECTO DE BUSQUEDA DE RESUMENES
+INTREGRANTESñ
+-VICTORIA HERNANDEZ
+-GIOVANNI ZARBO
+-GUSTAVO ABAD
+
+
+Link del repositorio:
+https://github.com/Victoria030307/Proyecto_2
